@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Kubernetes", "version": "v1.27.3" },
+  "paths": {
+    "/logs/": {
+      "get": {
+        "tags": ["logs"],
+        "operationId": "logFileListHandler",
+        "responses": { "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/logs/{logpath}": {
+      "get": {
+        "tags": ["logs"],
+        "operationId": "logFileHandler",
+        "responses": { "401": { "description": "Unauthorized" } }
+      },
+      "parameters": [
+        {
+          "name": "logpath",
+          "in": "path",
+          "description": "path to the log",
+          "required": true,
+          "schema": { "type": "string", "uniqueItems": true }
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerToken": {
+        "type": "apiKey",
+        "description": "Bearer Token authentication",
+        "name": "authorization",
+        "in": "header"
+      }
+    }
+  }
+}
