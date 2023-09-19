@@ -31343,39 +31343,50 @@
           },
           "spec": {
             "type": "object",
-            "required": ["traffics", "web_app_component_gateway_connection_id"],
+            "required": [
+              "project_id",
+              "release_channel_id",
+              "traffics",
+              "web_app_component_gateway_connection_ref"
+            ],
             "properties": {
+              "project_id": { "type": "string" },
+              "release_channel_id": { "type": "string" },
               "traffics": {
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "required": ["percent_x10000", "revision"],
+                  "required": ["percent_x10000", "type"],
                   "properties": {
                     "percent_x10000": {
-                      "description": "valid value is between 0 (0%) and 1,000,000 (100%)",
                       "type": "integer",
                       "format": "uint64",
                       "minimum": 0
                     },
                     "revision": {
-                      "type": "object",
-                      "oneOf": [
-                        { "required": ["Number"] },
-                        { "required": ["Latest"] }
-                      ],
-                      "properties": {
-                        "Latest": { "type": "object" },
-                        "Number": {
-                          "type": "integer",
-                          "format": "uint64",
-                          "minimum": 0
-                        }
-                      }
+                      "type": "integer",
+                      "nullable": true,
+                      "format": "uint64",
+                      "minimum": 0
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": ["RevisionNumber", "LatestRevision"]
                     }
                   }
                 }
               },
-              "web_app_component_gateway_connection_id": { "type": "string" }
+              "web_app_component_gateway_connection_ref": {
+                "type": "object",
+                "required": ["group", "kind", "name", "namespace", "version"],
+                "properties": {
+                  "group": { "type": "string" },
+                  "kind": { "type": "string" },
+                  "name": { "type": "string" },
+                  "namespace": { "type": "string" },
+                  "version": { "type": "string" }
+                }
+              }
             }
           },
           "status": { "type": "object", "nullable": true }
