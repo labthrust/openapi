@@ -14,4 +14,4 @@ update-swagger:
   kubectl get --raw /openapi/v2 > ./api/openapi-spec/v2/swagger.json
   deno run --allow-write --allow-read --allow-env --allow-run --allow-net=deno.land  ./scripts/gen.ts
   npx prettier -w ./api/openapi-spec/
-  kind create cluster --name openapi
+  kind delete cluster --name openapi
